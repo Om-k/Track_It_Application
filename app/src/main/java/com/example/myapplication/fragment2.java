@@ -8,8 +8,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class fragment2 extends Fragment {
     ListView l;
@@ -31,6 +33,15 @@ public class fragment2 extends Fragment {
                 android.R.layout.simple_list_item_1,
                 tutorials);
         l.setAdapter(arr);
+
+        l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Handle the click event here
+                String clickedItem = (String) parent.getItemAtPosition(position);
+                Toast.makeText(requireContext(), "Clicked item: " + clickedItem, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }
