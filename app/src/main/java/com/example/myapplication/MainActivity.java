@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 Toast.makeText(MainActivity.this, userId, Toast.LENGTH_SHORT).show();
                                 Toast.makeText(MainActivity.this, "Success.", Toast.LENGTH_SHORT).show();
+                                Log_In.userName = name.getText().toString();
 
                                 Map<String, Object> user2 = new HashMap<>();
                                 user2.put("name", usName);

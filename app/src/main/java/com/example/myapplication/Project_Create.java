@@ -55,12 +55,35 @@ public class Project_Create extends AppCompatActivity {
                 user2.put("Memebers", memebers);
 
 
+
                 CollectionReference collectionRef = db.collection(Log_In.userName);
                 DocumentReference documentRef1 = collectionRef.document(Log_In.userName+" user Data");
                 DocumentReference documentRef = collectionRef.document("Projects");
                 CollectionReference collectionRef2 = documentRef.collection(projName.getText().toString());
                 //Map<String, Object> documentData = new HashMap<>();
                 //documentData.put("arrayField", memeberList);
+
+                //Creating an leaderboard with zero values
+                for(String use:memebers)
+                {
+                    Map<String, Object> userLead = new HashMap<>();
+                    userLead.put(use, 0);
+                    collectionRef2.document("Project details").collection("LeaderBorad").document(use).set(userLead).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(Project_Create.this, "Added", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(Project_Create.this,HomePage.class);
+                                        //intent.putExtra("key", memebers);
+                                        startActivity(intent);
+                                    } else {
+                                        Toast.makeText(Project_Create.this, "No added", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                }
+                //Creating an leaderboard with zero values done
+
 
                 //Add Project description
 
@@ -124,10 +147,10 @@ public class Project_Create extends AppCompatActivity {
                                     newArray.add(projName.getText().toString());
 
                                     Map<String, Object> addProj = new HashMap<>();
-                                    //addProj.put("Projects", newArray);
+                                    addProj.put("Projects", newArray);
 
 
-                                    documentRef1.set(addProj)
+                                    documentRef1.update(addProj)
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {

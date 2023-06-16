@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class Log_In extends AppCompatActivity {
     Button b1;
-    static String userName = "New";
+    static String userName ;//= "New";
     EditText name,password,uName;
 
     private FirebaseAuth mAuth;
@@ -52,13 +52,13 @@ public class Log_In extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                ////////////////////////////////////////////////////////////////////
+               /* ////////////////////////////////////////////////////////////////////
                 //Fast Login section to be removed after testing
                 Intent intent = new Intent(Log_In.this,HomePage.class);
                 intent.putExtra("key", "New");
                 startActivity(intent);
                 //Fast Login section to be removed after testing
-                ////////////////////////////////////////////////////////////////////
+                ////////////////////////////////////////////////////////////////////*/
 
 
                 String email = name.getText().toString();

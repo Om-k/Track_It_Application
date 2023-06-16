@@ -48,10 +48,10 @@ public class fragment1 extends Fragment {
         newPro = view.findViewById(R.id.newProject);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference documentRef = db.collection(Log_In.userName).document("Projects");
-        DocumentReference documentRef1 = db.collection(Log_In.userName).document(Log_In.userName + " user Data");
+        //DocumentReference documentRef = db.collection(Log_In.userName).document("Projects");
+        //DocumentReference documentRef1 = db.collection(Log_In.userName).document(Log_In.userName + " user Data");
 
-        documentRef1.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection(Log_In.userName).document(Log_In.userName + " user Data").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -60,7 +60,7 @@ public class fragment1 extends Fragment {
                         if (documentSnapshot.contains("Projects")) {
                             // Field exists
                             arrayField = (List<Object>) documentSnapshot.get("Projects");
-                            Toast.makeText(requireContext(), "Got array: " + arrayField, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(requireContext(), "Got array: " + arrayField, Toast.LENGTH_SHORT).show();
 
                             // Convert the List to a String array
                             projects = new String[arrayField.size()];
@@ -94,13 +94,15 @@ public class fragment1 extends Fragment {
                 }
 
                 // Set up the button click listener
-                newPro.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(requireContext(), Project_Create.class);
-                        startActivity(intent);
-                    }
-                });
+
+            }
+        });
+
+        newPro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(requireContext(), Project_Create.class);
+                startActivity(intent);
             }
         });
 
