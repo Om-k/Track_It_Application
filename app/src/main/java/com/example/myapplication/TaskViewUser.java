@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -31,6 +34,7 @@ public class TaskViewUser extends AppCompatActivity {
     Button complete;
     String ProjLead=" ",ProjNameM=" ";
     Date date;
+    ImageView high,med,low;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,14 @@ public class TaskViewUser extends AppCompatActivity {
         Deadline = findViewById(R.id.dead);
         complete = findViewById(R.id.Complete);
         ProjName = findViewById(R.id.ProjName);
+
+        high = findViewById(R.id.high);
+        med = findViewById(R.id.med);
+        low = findViewById(R.id.low);
+
+        high.setAlpha(0.0f);
+        med.setAlpha(0.0f);
+       // low.setAlpha(0.4f);
 
         Intent intent = getIntent();
         String taskName = intent.getStringExtra("TaskName");
@@ -202,7 +214,40 @@ public class TaskViewUser extends AppCompatActivity {
                 });
                 //Removing from user list done
 
+                //Removing the task collection
+                //Removing the task collection from user
+                db.collection(Log_In.userName).document("Tasks").collection(taskName).
+                        get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if(task.isSuccessful())
+                                {
+                                    for (QueryDocumentSnapshot doc:task.getResult())
+                                    {
+                                        doc.getReference().delete();
+                                    }
+                                }
+                            }
+                        });
+                //Removing the task collection from user done
 
+                //Removing the task collection from Owner
+                db.collection(ProjLead).document("Projects").collection(ProjNameM).document("Tasks").collection(taskName).
+                        get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if(task.isSuccessful())
+                                {
+                                    for (QueryDocumentSnapshot doc:task.getResult())
+                                    {
+                                        doc.getReference().delete();
+                                    }
+                                }
+                            }
+                        });
+                //Removing the task collection from Owner done
+
+                //Removing the task collection done
 
 
             }

@@ -13,10 +13,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -50,6 +54,9 @@ public class Task_Create extends AppCompatActivity {
     Button addUse,create,deadline;
     ListView memeberList;
     Timestamp timestamp;
+    String[] priority= {"High","Med","Low"};
+    Spinner autoCompleteTextView;
+    SpinnerAdapter arrayAdapter;
 
     Calendar selectedDate;
     List<String> memebers = new ArrayList<>();
@@ -59,6 +66,16 @@ public class Task_Create extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_create);
+
+
+        //Priority list
+
+        autoCompleteTextView = findViewById(R.id.spinner);
+        arrayAdapter = new ArrayAdapter<String>(this,R.layout.list_item,priority);
+        autoCompleteTextView.setAdapter(arrayAdapter);
+
+
+        //Priority list done
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
        // CollectionReference collectionRef = db.collection(Log_In.userName);

@@ -6,57 +6,84 @@
     android:layout_height="match_parent"
     tools:context=".HomePage">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="407dp"
+        android:layout_height="254dp"
+        android:layout_marginTop="-30dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/backg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <TextView
         android:id="@+id/Val"
         android:layout_width="397dp"
         android:layout_height="39dp"
+        android:fontFamily="@font/poppins_semibold"
         android:text="Welcome"
         android:textAlignment="center"
+        android:textColor="#FFFFFF"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.714"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.008" />
+        app:layout_constraintVertical_bias="0.023" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
-        android:layout_width="391dp"
-        android:layout_height="wrap_content"
+        android:layout_width="281dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/beveled_square_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.055">
+        app:layout_constraintVertical_bias="0.096"
+        app:tabIndicatorColor="#00FFFFFF"
+        app:tabSelectedTextColor="#FFFFFF">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="#FFFFFF"
             android:text="My Tasks"
-            tools:layout_editor_absoluteX="-2dp"
-            tools:layout_editor_absoluteY="41dp" />
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="66dp" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="My Projects"
-            tools:layout_editor_absoluteX="193dp"
-            tools:layout_editor_absoluteY="41dp" />
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="211dp"
+            tools:layout_editor_absoluteY="66dp" />
 
 
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="393dp"
-        android:layout_height="698dp"
+        android:id="@+id/viewpager1"
+        android:layout_width="404dp"
+        android:layout_height="648dp"
+        android:layout_marginStart="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.915" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

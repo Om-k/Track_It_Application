@@ -112,7 +112,7 @@ public class fragment1 extends Fragment {
                 // Handle the click event here
                 String clickedItem = (String) parent.getItemAtPosition(position);
                 Toast.makeText(requireContext(), "Clicked item: " + clickedItem, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(requireContext(),Project_View.class);
+                Intent intent = new Intent(requireContext(),Project_View_2.class);
                 intent.putExtra("Pname",clickedItem);
                 startActivity(intent);
             }

@@ -1,10 +1,12 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,32 +15,31 @@ import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 
-public class HomePage extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Project_View_2 extends AppCompatActivity {
+
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private TextView t1;
+    private VPadapter vpAdapter;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
+        setContentView(R.layout.activity_project_view2);
 
-        Intent intent = getIntent();
-        String value = intent.getStringExtra("key");
-        t1 = findViewById(R.id.Val);
-        t1.setText(t1.getText().toString() + " " + value);
-
-        tabLayout = findViewById(R.id.tabLayout);
+        tabLayout = findViewById(R.id.tbL);
         viewPager = findViewById(R.id.viewpager1);
 
-        tabLayout.setupWithViewPager(viewPager);
-
-        VPadapter vpAdapter = new VPadapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        vpAdapter.addFragment(new fragment1(), "Projects");
-        vpAdapter.addFragment(new fragment2(), "Tasks");
-
+        vpAdapter = new VPadapter(getSupportFragmentManager());
+        vpAdapter.addFragment(new ProjViewFrag(), "Tasks");
+        vpAdapter.addFragment(new ProjDescFrag(), "Description");
+        vpAdapter.addFragment(new LeaderBoardFrag(), "Leaderboard");
 
         viewPager.setAdapter(vpAdapter);
+        tabLayout.setupWithViewPager(viewPager);
 
         // Set custom view for each tab
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
@@ -50,8 +51,6 @@ public class HomePage extends AppCompatActivity {
                 tab.setCustomView(tabView);
             }
         }
-
-
 
         View customView = tabLayout.getTabAt(0).getCustomView();
         if (customView != null) {
@@ -68,20 +67,20 @@ public class HomePage extends AppCompatActivity {
                 }
 
                 // Apply the selected tab style
-                TextView tabTextView = (TextView) tab.getCustomView();
+                TextView tabTextView = customView.findViewById(R.id.tab_text);
                 tabTextView.setTextColor(getResources().getColor(R.color.white));
                 tabTextView.setTypeface(null, Typeface.BOLD);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
                 View customView = tab.getCustomView();
                 if (customView != null) {
                     customView.setBackground(null);
                 }
+
                 // Apply the unselected tab style
-                TextView tabTextView = (TextView) tab.getCustomView();
+                TextView tabTextView = customView.findViewById(R.id.tab_text);
                 tabTextView.setTextColor(getResources().getColor(R.color.white));
                 tabTextView.setTypeface(null, Typeface.BOLD);
             }
@@ -91,5 +90,35 @@ public class HomePage extends AppCompatActivity {
                 // No action needed
             }
         });
+    }
+
+    // Custom ViewPager Adapter
+    class VPadapter extends FragmentPagerAdapter {
+        private final List<Fragment> fragmentList = new ArrayList<>();
+        private final List<String> fragmentTitleList = new ArrayList<>();
+
+        public VPadapter(FragmentManager manager) {
+            super(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            fragmentList.add(fragment);
+            fragmentTitleList.add(title);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragmentList.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return fragmentTitleList.get(position);
+        }
     }
 }
